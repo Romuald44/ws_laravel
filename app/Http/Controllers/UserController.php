@@ -27,11 +27,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->username = $request->input('username');
-        $user->user_email = $request->input('user_email');
-        $user->user_role = $request->input('user_role');
-        $user->user_status = $request->input('user_status');
+        $user->username = (!empty($request->input('username'))) ? $request->input('username') : '';
+        $user->user_email = (!empty($request->input('user_email'))) ? $request->input('user_email') : '';
+        $user->user_role = (!empty($request->input('user_role'))) ? $request->input('user_role') : '';
+        $user->user_status = (!empty($request->input('user_status'))) ? $request->input('user_status') : '';
         $user->save();
+        return response('Enregistrement '.json_encode($user));
     }
 
     /**
@@ -56,11 +57,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->username = $request->input('username');
-        $user->user_email = $request->input('user_email');
-        $user->user_role = $request->input('user_role');
-        $user->user_status = $request->input('user_status');
+        $user->username = (!empty($request->input('username'))) ? $request->input('username') : '';
+        $user->user_email = (!empty($request->input('user_email'))) ? $request->input('user_email') : '';
+        $user->user_role = (!empty($request->input('user_role'))) ? $request->input('user_role') : '';
+        $user->user_status = (!empty($request->input('user_status'))) ? $request->input('user_status') : '';
         $user->save();
+        return response('Mise a jour '.json_encode($user));
     }
 
     /**
@@ -72,5 +74,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
+        return response('Suppression de l\'enregistrement numero : '.$id);
     }
 }
